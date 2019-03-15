@@ -251,4 +251,37 @@ class PunchcardTest extends TestCase
 
         $this->assertInstanceOf('\Carbon\Carbon', $punchcard->parse('08:00 AM'));
     }
+
+    /**
+     * @test
+     * @group punchcard
+     * @group unit:punchcard
+     * @group punchcard@tardy
+     * @group punchcard@tardyAM
+     * @dataProvider \Codrasil\Punchcard\Test\DataProvider\PunchcardDataProvider::providerTardyTimeData
+     */
+    public function testItCanCalculateTotalTardyTime($data, $options, $expected)
+    {
+        $punchcard = new Punchcard($options);
+        $punchcard->setTimeIn($data['time_in']);
+
+        $this->assertSame($expected['total_tardy'], $punchcard->totalTardy()->toString());
+        $this->assertSame($expected['total_tardy'], $punchcard->totalTardyAM()->toString());
+    }
+
+    /**
+     * @test
+     * @group punchcard
+     * @group unit:punchcard
+     * @group punchcard@tardy
+     * @group punchcard@tardyPM
+     * @dataProvider \Codrasil\Punchcard\Test\DataProvider\PunchcardDataProvider::providerTardyTimeData
+     */
+    public function testItCanCalculateTotalTardyTimeInAfternoon($data, $options, $expected)
+    {
+        $punchcard = new Punchcard($options);
+        $punchcard->setTimeIn($data['pm_time_in']);
+
+        $this->assertSame($expected['total_tardy_PM'], $punchcard->totalTardyPM()->toString());
+    }
 }

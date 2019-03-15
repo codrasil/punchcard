@@ -153,7 +153,7 @@ class Punchcard
      * Calculate the total hours
      * in the morning since time in to lunch.
      *
-     * @return self
+     * @return \Codrasil\Punchcard\PunchcardInterval
      */
     public function totalAM()
     {
@@ -176,7 +176,7 @@ class Punchcard
      * Calculate the total hours
      * in the afternoon from lunch end to time out.
      *
-     * @return self
+     * @return \Codrasil\Punchcard\PunchcardInterval
      */
     public function totalPM()
     {
@@ -204,7 +204,7 @@ class Punchcard
      * @param  string $timeOut
      * @param  string $lunchStart
      * @param  string $lunchEnd
-     * @return string
+     * @return \Codrasil\Punchcard\PunchcardInterval
      */
     public function totalDuration()
     {
@@ -221,6 +221,48 @@ class Punchcard
     }
 
     /**
+     * Calculate late hours.
+     *
+     * @return \Codrasil\Punchcard\PunchcardInterval
+     */
+    public function totalTardy()
+    {
+        $this->total = $this->getParam('default_time_in')->diff($this->timeIn(), $makeAbsolute = false);
+
+        if ($this->timeInIsEarly()) {
+            $this->total = $this->interval('00:00:00');
+        }
+
+        return $this->interval()->make($this->total());
+    }
+
+    /**
+     * Alias for totalTardy
+     *
+     * @return \Codrasil\Punchcard\PunchcardInterval
+     */
+    public function totalTardyAM()
+    {
+        return $this->totalTardy();
+    }
+
+    /**
+     * Calculate late hours in afternoon.
+     *
+     * @return \Codrasil\Punchcard\PunchcardInterval
+     */
+    public function totalTardyPM()
+    {
+        $this->total = $this->getParam('default_lunch_end')->diff($this->timeIn(), $makeAbsolute = false);
+
+        if ($this->timeInIsEarly('default_lunch_end')) {
+            $this->total = $this->interval('00:00:00');
+        }
+
+        return $this->interval()->make($this->total());
+    }
+
+    /**
      * Calculate total subtracting the lunch hours.
      * @param \DateInterval $time
      * @return DateInterval
@@ -228,6 +270,17 @@ class Punchcard
     protected function totalDurationMinusLunchHours($time)
     {
         return $this->parse($time->format('%H:%I:%S'))->diff($this->getTotalLunchHours());
+    }
+
+    /**
+     * Check if time in is greater than the default time in.
+     *
+     * @param string $timeInKey
+     * @return bool
+     */
+    protected function timeInIsEarly($timeInKey = 'default_time_in'): bool
+    {
+        return $this->getParam($timeInKey)->greaterThan($this->timeIn());
     }
 
     /**

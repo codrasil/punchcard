@@ -30,4 +30,25 @@ class PunchcardDataProvider
             ],
         ];
     }
+
+    public static function providerTardyTimeData()
+    {
+        return [
+            [
+                ['time_in' => '08:48:00', 'pm_time_in' => '13:04:00'],
+                ['default_time_in' => '08:00:00'],
+                ['total_tardy' => '00:48:00', 'total_tardy_PM' => '00:04:00'],
+            ],
+            [
+                ['time_in' => '08:48:00', 'pm_time_in' => '13:55:00'],
+                ['default_time_in' => '09:00:00', 'default_lunch_end' => '14:00:00'],
+                ['total_tardy' => '00:00:00', 'total_tardy_PM' => '00:00:00'],
+            ],
+            [
+                ['time_in' => '09:15:20', 'pm_time_in' => '14:15:00'],
+                ['default_time_in' => '09:00:00', 'default_lunch_end' => '14:00:00'],
+                ['total_tardy' => '00:15:20', 'total_tardy_PM' => '00:15:00'],
+            ],
+        ];
+    }
 }
