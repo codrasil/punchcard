@@ -8,6 +8,7 @@ class Punchcard
 {
     use Traits\LuncheonHourAware,
         Traits\UsesCarbon,
+        Traits\UsesPunchcardInterval,
         Traits\TimeUnitConverter;
 
     /**
@@ -168,7 +169,7 @@ class Punchcard
             }
         }
 
-        return $this;
+        return $this->interval()->make($this->total());
     }
 
     /**
@@ -193,7 +194,7 @@ class Punchcard
             }
         }
 
-        return $this;
+        return $this->interval()->make($this->total());
     }
 
     /**
@@ -216,7 +217,7 @@ class Punchcard
             $this->total = $this->totalDurationMinusLunchHours($this->total);
         }
 
-        return $this;
+        return $this->interval()->make($this->total());
     }
 
     /**
