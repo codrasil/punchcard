@@ -230,7 +230,7 @@ class Punchcard
         $this->total = $this->getParam('default_time_in')->diff($this->timeIn(), $makeAbsolute = false);
 
         if ($this->timeInIsEarly()) {
-            $this->total = $this->interval('00:00:00');
+            $this->total = $this->interval();
         }
 
         return $this->interval()->make($this->total());
@@ -256,7 +256,39 @@ class Punchcard
         $this->total = $this->getParam('default_lunch_end')->diff($this->timeIn(), $makeAbsolute = false);
 
         if ($this->timeInIsEarly('default_lunch_end')) {
-            $this->total = $this->interval('00:00:00');
+            $this->total = $this->interval();
+        }
+
+        return $this->interval()->make($this->total());
+    }
+
+    /**
+     * Calculate the overtime hours.
+     *
+     * @return \Codrasil\Punchcard\PunchcardInterval
+     */
+    public function totalOvertime()
+    {
+        $this->total = $this->interval();
+
+        if ($this->timeOutIsLate()) {
+            $this->total = $this->getParam('default_time_out')->diff($this->timeOut());
+        }
+
+        return $this->interval()->make($this->total());
+    }
+
+    /**
+     * Calculate the undertime hours.
+     *
+     * @return \Codrasil\Punchcard\PunchcardInterval
+     */
+    public function totalUndertime()
+    {
+        $this->total = $this->interval();
+
+        if ($this->timeOutIsEarly()) {
+            $this->total = $this->timeOut()->diff($this->getParam('default_time_out'));
         }
 
         return $this->interval()->make($this->total());
@@ -281,6 +313,28 @@ class Punchcard
     protected function timeInIsEarly($timeInKey = 'default_time_in'): bool
     {
         return $this->getParam($timeInKey)->greaterThan($this->timeIn());
+    }
+
+    /**
+     * Check if time in is greater than the default time in.
+     *
+     * @param string $timeOutKey
+     * @return bool
+     */
+    protected function timeOutIsEarly($timeOutKey = 'default_time_out'): bool
+    {
+        return $this->getParam($timeOutKey)->greaterThan($this->timeOut());
+    }
+
+    /**
+     * Check if time out is greater than the default time out.
+     *
+     * @param string $timeOutKey
+     * @return bool
+     */
+    protected function timeOutIsLate($timeOutKey = 'default_time_out'): bool
+    {
+        return $this->timeOut()->greaterThan($this->getParam($timeOutKey));
     }
 
     /**

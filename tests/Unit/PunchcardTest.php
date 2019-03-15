@@ -14,6 +14,28 @@ class PunchcardTest extends TestCase
 {
     /**
      * @test
+     * @group  punchcard
+     * @group  punchcard:helper
+     */
+    public function testHelperFunctionExists()
+    {
+        $punchcard = new Punchcard;
+        $classTotalDuration = $punchcard->setTimeIn('8:00 AM')
+                                        ->setTimeOut('5 PM')
+                                        ->totalDuration()
+                                        ->toString();
+
+        $functionTotalDuration = punchcard()->setTimeIn('8:00 AM')
+                                            ->setTimeOut('5 PM')
+                                            ->totalDuration()
+                                            ->toString();
+
+        $this->assertInstanceOf(Punchcard::class, punchcard());
+        $this->assertSame($classTotalDuration, $functionTotalDuration);
+    }
+
+    /**
+     * @test
      * @group punchcard
      * @group unit:punchcard
      * @group punchcard:init
@@ -283,5 +305,35 @@ class PunchcardTest extends TestCase
         $punchcard->setTimeIn($data['pm_time_in']);
 
         $this->assertSame($expected['total_tardy_PM'], $punchcard->totalTardyPM()->toString());
+    }
+
+    /**
+     * @test
+     * @group punchcard
+     * @group unit:punchcard
+     * @group punchcard@overtime
+     * @dataProvider \Codrasil\Punchcard\Test\DataProvider\PunchcardDataProvider::providerOvertimeData
+     */
+    public function testItCanCalculateTotalOvertime($data, $options, $expected)
+    {
+        $punchcard = new Punchcard($options);
+        $punchcard->setTimeOut($data['time_out']);
+
+        $this->assertSame($expected['total_overtime'], $punchcard->totalOvertime()->toString());
+    }
+
+    /**
+     * @test
+     * @group punchcard
+     * @group unit:punchcard
+     * @group punchcard@undertime
+     * @dataProvider \Codrasil\Punchcard\Test\DataProvider\PunchcardDataProvider::providerUndertimeData
+     */
+    public function testItCanCalculateTotalUndertime($data, $options, $expected)
+    {
+        $punchcard = new Punchcard($options);
+        $punchcard->setTimeOut($data['time_out']);
+
+        $this->assertSame($expected['total_undertime'], $punchcard->totalUndertime()->toString());
     }
 }

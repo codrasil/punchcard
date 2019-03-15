@@ -51,4 +51,56 @@ class PunchcardDataProvider
             ],
         ];
     }
+
+    public static function providerOvertimeData()
+    {
+        return [
+            [
+                ['time_out' => '6:20 PM'],
+                ['default_time_out' => '5 PM'],
+                ['total_overtime' => '01:20:00'],
+            ],
+            [
+                ['time_out' => '6:00 PM'],
+                ['default_time_out' => '6 PM'],
+                ['total_overtime' => '00:00:00'],
+            ],
+            [
+                ['time_out' => '6:00:01 PM'],
+                ['default_time_out' => '6 PM'],
+                ['total_overtime' => '00:00:01'],
+            ],
+            [
+                ['time_out' => '5:00 PM'],
+                ['default_time_out' => '6 PM'],
+                ['total_overtime' => '00:00:00'],
+            ],
+        ];
+    }
+
+    public static function providerUndertimeData()
+    {
+        return [
+            [
+                ['time_out' => '4:20 PM'],
+                ['default_time_out' => '5 PM'],
+                ['total_undertime' => '00:40:00'],
+            ],
+            [
+                ['time_out' => '6:00 PM'],
+                ['default_time_out' => '6 PM'],
+                ['total_undertime' => '00:00:00'],
+            ],
+            [
+                ['time_out' => '6:00:01 PM'],
+                ['default_time_out' => '6 PM'],
+                ['total_undertime' => '00:00:00'],
+            ],
+            [
+                ['time_out' => '3:00 PM'],
+                ['default_time_out' => '6 PM'],
+                ['total_undertime' => '03:00:00'],
+            ],
+        ];
+    }
 }
