@@ -99,8 +99,8 @@ class PunchcardTest extends TestCase
          *
          */
         $totalAM = $punchcard->totalAM();
-        $this->assertSame(date('H:i:s', strtotime($data['time_in'])), $punchcard->timeIn()->format('H:i:s'));
         $this->assertSame($expected['total_AM'], $totalAM->toString());
+        $this->assertSame($expected['total_AM'], $totalAM->toDuration());
     }
 
     /**
@@ -124,6 +124,7 @@ class PunchcardTest extends TestCase
          */
         $totalPM = $punchcard->totalPM();
         $this->assertSame($expected['total_PM'], $totalPM->toString());
+        $this->assertSame($expected['total_PM'], $totalPM->toDuration());
     }
 
     /**
@@ -145,6 +146,7 @@ class PunchcardTest extends TestCase
          */
         $totalDuration = $punchcard->totalDuration();
         $this->assertSame($expected['total_duration'], $totalDuration->toString());
+        $this->assertSame($expected['total_duration'], $totalDuration->toDuration());
     }
 
     /**
