@@ -95,5 +95,13 @@ Or via method `setParams`:
 $punchcard->setParams($options);
 ```
 
+<br>
 
+#### Documentation
+coming soon
 
+<br>
+
+#### License
+
+The Codrasil/Punchcard PHP library is open-source software licensed under the [MIT license](./LICENSE).
