@@ -93,7 +93,7 @@ trait LuncheonHourAware
      */
     protected function isBeforeLunch($time)
     {
-        return $time->lessThan($this->lunchStart());
+        return $time->lessThanOrEqualTo($this->lunchStart());
     }
 
     /**
@@ -104,6 +104,6 @@ trait LuncheonHourAware
      */
     protected function isAfterLunch($time)
     {
-        return $time->greaterThan($this->lunchEnd());
+        return $time->greaterThanOrEqualTo($this->lunchEnd());
     }
 }
