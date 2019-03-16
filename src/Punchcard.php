@@ -291,7 +291,37 @@ class Punchcard
             $this->total = $this->timeOut()->diff($this->getParam('default_time_out'));
         }
 
+        if ($this->isBeforeLunch($this->timeOut()) && $this->includeLuncheonHour()) {
+            $this->total = $this->totalDurationMinusLunchHours($this->total);
+        }
+
         return $this->interval()->make($this->total());
+    }
+
+    /**
+     * Calculate the undertime hours.
+     *
+     * @return \Codrasil\Punchcard\PunchcardInterval
+     */
+    public function totalUndertimeAM()
+    {
+        $this->total = $this->interval();
+
+        if ($this->timeOutIsEarly('default_lunch_start')) {
+            $this->total = $this->timeOut()->diff($this->getParam('default_lunch_start'));
+        }
+
+        return $this->interval()->make($this->total());
+    }
+
+    /**
+     * Calculate the undertime hours.
+     *
+     * @return \Codrasil\Punchcard\PunchcardInterval
+     */
+    public function totalUndertimePM()
+    {
+        return $this->totalUndertime();
     }
 
     /**
@@ -312,7 +342,7 @@ class Punchcard
      */
     protected function timeInIsEarly($timeInKey = 'default_time_in'): bool
     {
-        return $this->getParam($timeInKey)->greaterThan($this->timeIn());
+        return $this->getParam($timeInKey)->greaterThanOrEqualTo($this->timeIn());
     }
 
     /**
@@ -323,7 +353,7 @@ class Punchcard
      */
     protected function timeOutIsEarly($timeOutKey = 'default_time_out'): bool
     {
-        return $this->getParam($timeOutKey)->greaterThan($this->timeOut());
+        return $this->getParam($timeOutKey)->greaterThanOrEqualTo($this->timeOut());
     }
 
     /**
@@ -334,7 +364,7 @@ class Punchcard
      */
     protected function timeOutIsLate($timeOutKey = 'default_time_out'): bool
     {
-        return $this->timeOut()->greaterThan($this->getParam($timeOutKey));
+        return $this->timeOut()->greaterThanOrEqualTo($this->getParam($timeOutKey));
     }
 
     /**
