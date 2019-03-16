@@ -52,14 +52,28 @@ echo $punchcard->totalDuration()->toString();
 // ouputs: 09:00:00
 
 // Other methods:
+$punchcard->setTimeIn('8:15 AM');
 $punchcard->totalTardy()->toString();
 $punchcard->totalTardyAM()->toString(); // this is the same with totalTardy
+// outputs: 00:15:00
+
+// Assuming afternoon work resumes at 1PM:
+$punchcard->setTimeIn('1:15 PM');
 $punchcard->totalTardyPM()->toString();
+// outputs: 00:15:00
+
+// Assuming work ends at 5PM
+$punchcard->setTimeOut('6:20 PM');
 $punchcard->totalOvertime()->toString();
-$punchcard->totalOvertimeAM()->toString();
-$punchcard->totalOvertimePM()->toString(); // this is the same with totalOvertime
+// outputs: 01:20:00
+
+// Assuming work ends at 5PM
+$punchcard->setTimeOut('4:20 PM');
 $punchcard->totalUndertime()->toString();
-$punchcard->totalUndertimeAM()->toString(); // requires option `time_in_end`
+// outputs: 5:00PM - 4:20PM = 00:40:00
+
+// AM undertime calculate against default_lunch_start
+$punchcard->totalUndertimeAM()->toString();
 $punchcard->totalUndertimePM()->toString(); // this is the same with totalUndertime
 ```
 
