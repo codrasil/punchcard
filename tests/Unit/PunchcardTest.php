@@ -327,6 +327,7 @@ class PunchcardTest extends TestCase
      * @group punchcard
      * @group unit:punchcard
      * @group punchcard@undertime
+     * @group punchcard@undertimePM
      * @dataProvider \Codrasil\Punchcard\Test\DataProvider\PunchcardDataProvider::providerUndertimeData
      */
     public function testItCanCalculateTotalUndertime($data, $options, $expected)
@@ -335,5 +336,22 @@ class PunchcardTest extends TestCase
         $punchcard->setTimeOut($data['time_out']);
 
         $this->assertSame($expected['total_undertime'], $punchcard->totalUndertime()->toString());
+        $this->assertSame($expected['total_undertime'], $punchcard->totalUndertimePM()->toString());
+    }
+
+    /**
+     * @test
+     * @group punchcard
+     * @group unit:punchcard
+     * @group punchcard@undertime
+     * @group punchcard@undertimeAM
+     * @dataProvider \Codrasil\Punchcard\Test\DataProvider\PunchcardDataProvider::providerUndertimeData
+     */
+    public function testItCanCalculateTotalUndertimeInMorning($data, $options, $expected)
+    {
+        $punchcard = new Punchcard($options);
+        $punchcard->setTimeOut($data['time_out']);
+
+        $this->assertSame($expected['total_undertime_AM'], $punchcard->totalUndertimeAM()->toString());
     }
 }

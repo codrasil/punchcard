@@ -83,23 +83,33 @@ class PunchcardDataProvider
         return [
             [
                 ['time_out' => '4:20 PM'],
-                ['default_time_out' => '5 PM'],
-                ['total_undertime' => '00:40:00'],
+                ['default_lunch_start' => '12:00 PM', 'default_time_out' => '5 PM'],
+                ['total_undertime' => '00:40:00', 'total_undertime_AM' => '00:00:00'],
             ],
             [
                 ['time_out' => '6:00 PM'],
-                ['default_time_out' => '6 PM'],
-                ['total_undertime' => '00:00:00'],
+                ['default_lunch_start' => '12:00 PM', 'default_time_out' => '6 PM'],
+                ['total_undertime' => '00:00:00', 'total_undertime_AM' => '00:00:00'],
             ],
             [
                 ['time_out' => '6:00:01 PM'],
-                ['default_time_out' => '6 PM'],
-                ['total_undertime' => '00:00:00'],
+                ['default_lunch_start' => '12:00 PM', 'default_time_out' => '6 PM'],
+                ['total_undertime' => '00:00:00', 'total_undertime_AM' => '00:00:00'],
             ],
             [
                 ['time_out' => '3:00 PM'],
-                ['default_time_out' => '6 PM'],
-                ['total_undertime' => '03:00:00'],
+                ['default_lunch_start' => '12:00 PM', 'default_time_out' => '6 PM'],
+                ['total_undertime' => '03:00:00', 'total_undertime_AM' => '00:00:00'],
+            ],
+            [
+                ['time_out' => '11:00 AM'],
+                ['default_lunch_start' => '12:00 PM', 'default_time_out' => '6 PM'],
+                ['total_undertime' => '06:00:00', 'total_undertime_AM' => '01:00:00'],
+            ],
+            [
+                ['time_out' => '12:00 PM'],
+                ['default_lunch_start' => '12:00 PM', 'default_time_out' => '5 PM'],
+                ['total_undertime' => '04:00:00', 'total_undertime_AM' => '00:00:00'],
             ],
         ];
     }
