@@ -35,21 +35,21 @@ $punchcard = new Punchcard;
 $punchcard->setTimeIn('8:00 AM') // parses into 08:00:00 format
           ->setTimeOut('5 PM');  // uses Carbon\Carbon for parsing strings to \DateTime
 
-$punchcard->lunch($deductLunchHours = true); // calculate with lunch hours substracted
+$punchcard->lunch($deductLunchHours = true); // calculate with lunch hours subtracted
 
 echo $punchcard->totalDuration()->toString();
 // performs: $timeOut - $timeIn = $duration in 00:00:00 format.
-// ouputs: 08:00:00
+// outputs: 08:00:00
 
 echo $punchcard->totalAM();
-// ouputs: 04:00:00
+// outputs: 04:00:00
 
 echo $punchcard->totalPM();
-// ouputs: 04:00:00
+// outputs: 04:00:00
 
 $punchcard->lunch(false);
 echo $punchcard->totalDuration()->toString();
-// ouputs: 09:00:00
+// outputs: 09:00:00
 
 // Other methods:
 $punchcard->setTimeIn('8:15 AM');
