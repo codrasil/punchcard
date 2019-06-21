@@ -18,7 +18,7 @@ $ composer require codrasil/punchcard
 ```json
 {
     "require": {
-        "codrasil/punchcard": "^1.0.0"
+        "codrasil/punchcard": "^1.*"
     }
 }
 ```
