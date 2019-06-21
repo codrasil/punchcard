@@ -4,6 +4,13 @@ A PHP Library for interacting with time records, time in, and time out.
 
 <br>
 
+[![Latest Stable Version](https://poser.pugx.org/codrasil/punchcard/version)](https://packagist.org/packages/codrasil/punchcard)
+[![Total Downloads](https://poser.pugx.org/codrasil/punchcard/downloads)](https://packagist.org/packages/codrasil/punchcard)
+[![Latest Unstable Version](https://poser.pugx.org/codrasil/punchcard/v/unstable)](//packagist.org/packages/codrasil/punchcard)
+[![License](https://poser.pugx.org/codrasil/punchcard/license)](https://packagist.org/packages/codrasil/punchcard)
+
+<br>
+
 #### Requirements
 * **php**: `>=7.1`
 * **nesbot/carbon**: `^2.16`
